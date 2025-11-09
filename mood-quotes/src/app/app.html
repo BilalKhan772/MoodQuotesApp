@@ -23,12 +23,15 @@
         <button class="chip" [class.active]="lang()==='ur'" (click)="setLang('ur')">اردو</button>
       </div>
 
-      <!-- Theme Switch -->
-      <label class="switch" aria-label="{{ labels().theme }}">
-        <input type="checkbox" [checked]="theme()==='dark'" (change)="toggleTheme($event.target.checked)">
-        <span class="slider">
-          <span class="sun">☀️</span>
-          <span class="moon">🌙</span>
+      <!-- Theme Toggle (new pill style) -->
+      <label class="theme-toggle" aria-label="{{ labels().theme }}">
+        <input type="checkbox"
+               [checked]="theme()==='dark'"
+               (change)="toggleTheme($event.target.checked)">
+        <span class="track">
+          <span class="icon sun" aria-hidden="true"></span>
+          <span class="icon moon" aria-hidden="true"></span>
+          <span class="knob"></span>
         </span>
       </label>
     </div>
