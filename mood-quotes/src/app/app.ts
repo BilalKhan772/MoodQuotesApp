@@ -99,6 +99,7 @@ export class App implements OnInit, AfterViewInit {
         .to(this.appRoot.nativeElement, { opacity: 1, duration: 0.7, ease: 'power2.out' }, '<0.05');
 
       this.animateQuote();
+      // entry for mood chips
       gsap.from('.mood', { opacity: 0, y: 8, stagger: 0.08, duration: 0.35, ease: 'power1.out', delay: 0.4 });
     } catch {
       this.showWelcome.set(false);
@@ -133,7 +134,7 @@ export class App implements OnInit, AfterViewInit {
   }
 
   private applyTheme() {
-    // html element per "dark" class (welcome overlay ke selectors ke liye)
+    // welcome overlay selectors depend on <html>.dark
     document.documentElement.classList.toggle('dark', this.theme() === 'dark');
   }
 

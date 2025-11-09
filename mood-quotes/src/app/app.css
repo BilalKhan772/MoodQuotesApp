@@ -1,6 +1,6 @@
 :root{
   --bg:#eef1ff; --text:#0e0e12;
-  --bg-dark:#0a0b11; --text-dark:#f5f7ff;
+  --bg-dark:#0a0b11; --text-dark:#ffffff;  /* pure white */
   --ring:#3b82f6; --blur:18px; --speed:360ms;
 }
 *{box-sizing:border-box}
@@ -10,7 +10,7 @@ body{
   "Noto Naskh Arabic","Noto Nastaliq Urdu",Arial,sans-serif;
 }
 
-/* ===================== WELCOME ===================== */
+/* ============== WELCOME ============== */
 .welcome{
   position:fixed; inset:0; display:grid; place-items:center; z-index:60;
   background: radial-gradient(900px 640px at 50% 55%, #ffffff, #e9efff 70%, transparent);
@@ -31,7 +31,7 @@ body{
 }
 .welcome-sub{ margin-top:4px; font-size:clamp(14px,2.6vw,18px); opacity:.9 }
 
-/* ===================== APP ===================== */
+/* ============== APP ============== */
 .app{
   position:relative; z-index:0;
   min-height:100vh; display:grid;
@@ -47,10 +47,13 @@ body{
 }
 @keyframes darkMove{ 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
 
-/* moving strokes: keep always visible in dark */
+/* ---- FORCE ALL TEXT WHITE IN DARK ---- */
+.app.dark, .app.dark *:not(.sun):not(.moon) { color:#fff !important; }
+
+/* moving strokes: always visible in dark */
 .app.dark::before{
   content:""; position:absolute; inset:-6%; z-index:-1; pointer-events:none;
-  opacity:.42; mix-blend-mode:screen;  /* bright on dark */
+  opacity:.42; mix-blend-mode:screen;
   background:
     repeating-linear-gradient( 16deg, rgba(255,255,255,.14) 0 2px, transparent 2px 140px ),
     repeating-linear-gradient(-22deg, rgba(255,255,255,.14) 0 2px, transparent 2px 160px );
@@ -67,15 +70,6 @@ body{
 .brand{font-weight:800;letter-spacing:.3px}
 .controls{display:flex;gap:16px;align-items:center}
 .sep{opacity:.8}
-
-/* Force light text in dark everywhere you marked */
-.app.dark .brand,
-.app.dark .title,
-.app.dark .tag,
-.app.dark .mood,
-.app.dark .quote,
-.app.dark .foot,
-.app.dark .lang-toggle .chip{ color: var(--text-dark) !important; }
 
 /* Switch */
 .switch{ position:relative; width:72px; height:36px; display:inline-block; }
@@ -106,15 +100,8 @@ body{
   transition: transform .16s ease, box-shadow var(--speed), background var(--speed), color var(--speed);
   box-shadow: 0 10px 20px rgba(0,0,0,.08); font-size:16px; color:#111;
 }
-.app.dark .chip{ background: rgba(16,18,27,.72); color: var(--text-dark) }
-.chip::before{
-  content:""; position:absolute; inset:0; z-index:-1; opacity:.98;
-  transform: scaleX(0); transform-origin:left; transition: transform .28s ease;
-  background: linear-gradient(90deg,#6366f1,#22d3ee);
-}
-.app.dark .chip::before{ background: linear-gradient(90deg,#a78bfa,#22d3ee) }
-.chip.sel::before,.chip.active::before,.chip:active::before{ transform: scaleX(1) }
-.chip.sel,.chip.active{ color:#fff }
+.app.dark .chip{ background: rgba(16,18,27,.72) }
+.chip.sel,.chip.active{ background: linear-gradient(90deg,#6366f1,#22d3ee); color:#fff !important }
 
 /* Hero */
 .hero{text-align:center;padding:12px 20px 6px}
@@ -141,7 +128,7 @@ body{
   box-shadow: 0 22px 70px rgba(0,0,0,.6);
 }
 
-/* slower word-by-word */
+/* word-by-word */
 .word{ opacity:0; transform: translateY(8px); animation: wordIn .58s forwards cubic-bezier(.17,.67,.29,1) }
 @keyframes wordIn{ to{ opacity:1; transform: translateY(0) } }
 
@@ -169,7 +156,7 @@ body{
 .app.light.bg-focused::after{ background: radial-gradient(60% 60% at 30% 30%,#34d399,transparent), radial-gradient(50% 50% at 70% 70%,#0ea5a0,transparent) }
 .app.light.bg-creative::after{ background: radial-gradient(60% 60% at 30% 30%,#a78bfa,transparent), radial-gradient(50% 50% at 70% 70%,#f472b6,transparent) }
 
-/* DARK mood tint under lines (z-index lower than ::before) */
+/* DARK tint below lines */
 .app.dark.bg-happy{ --t:#b88900 } .app.dark.bg-sad{ --t:#315a9a }
 .app.dark.bg-focused{ --t:#0f6a54 } .app.dark.bg-creative{ --t:#5b41b3 }
 .app.dark::after{

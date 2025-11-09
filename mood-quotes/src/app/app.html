@@ -55,7 +55,6 @@
   <!-- Quote -->
   <main class="quote-wrap">
     <article #quoteEl class="quote" aria-live="polite">
-      <!-- slower per-word delay = 130ms -->
       <span class="word" *ngFor="let w of words(); let i = index" [style.animationDelay.ms]="i * 130">{{ w }}&nbsp;</span>
     </article>
     <button class="btn" (click)="nextQuote()">{{ labels().newQuote }}</button>
