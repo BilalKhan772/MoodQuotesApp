@@ -13,7 +13,7 @@ const LABELS = {
     dark: 'Dark',
     moods: { happy: 'Happy', sad: 'Sad', focused: 'Focused', creative: 'Creative' },
     newQuote: 'New Quote',
-    welcome: 'Welcome',
+    welcome: 'Hello & Welcome',
   },
   ur: {
     appName: 'مزاجی اقوال',
@@ -62,7 +62,7 @@ export class App implements OnInit, AfterViewInit {
   mood  = signal<Mood>((localStorage.getItem('mood') as Mood) || 'happy');
   index = signal<number>(0);
 
-  showWelcome = signal<boolean>(true);
+  showWelcome = signal(true);
 
   labels = computed(() => LABELS[this.lang()]);
   isRtl  = computed(() => this.lang() === 'ur');
@@ -83,21 +83,23 @@ export class App implements OnInit, AfterViewInit {
   }
 
   async ngAfterViewInit() {
-    // Intro animation
     try {
       const { gsap } = await import('gsap');
-      gsap.set(this.appRoot.nativeElement, { opacity: 0, y: 12 });
-      gsap.to(this.appRoot.nativeElement, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.35 });
+      gsap.set(this.appRoot.nativeElement, { opacity: 0 });
 
-      if (this.welcomeEl) {
-        const tl = gsap.timeline();
-        tl.fromTo(this.welcomeEl.nativeElement, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' })
-          .to(this.welcomeEl.nativeElement, { y: -8, opacity: 0, duration: 0.5, delay: 0.6, ease: 'power1.in' })
-          .add(() => this.showWelcome.set(false));
-      }
+      const card  = this.welcomeEl.nativeElement.querySelector('.welcome-card') as HTMLElement;
+      const title = this.welcomeEl.nativeElement.querySelector('.welcome-title') as HTMLElement;
+      const sub   = this.welcomeEl.nativeElement.querySelector('.welcome-sub') as HTMLElement;
+
+      const tl = gsap.timeline();
+      tl.fromTo(card, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.8)' })
+        .fromTo(title, { letterSpacing: '-2px', y: 8, opacity: 0 }, { letterSpacing: '1px', y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, '-=0.1')
+        .fromTo(sub, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power1.out' }, '-=0.2')
+        .to(this.welcomeEl.nativeElement, { opacity: 0, duration: 0.7, delay: 0.9, ease: 'power1.inOut', onComplete: () => this.showWelcome.set(false) })
+        .to(this.appRoot.nativeElement, { opacity: 1, duration: 0.7, ease: 'power2.out' }, '<0.05');
 
       this.animateQuote();
-      gsap.from('.mood', { opacity: 0, y: 8, stagger: 0.08, duration: 0.35, ease: 'power1.out', delay: 0.3 });
+      gsap.from('.mood', { opacity: 0, y: 8, stagger: 0.08, duration: 0.35, ease: 'power1.out', delay: 0.4 });
     } catch {
       this.showWelcome.set(false);
     }
@@ -116,7 +118,6 @@ export class App implements OnInit, AfterViewInit {
     localStorage.setItem('theme', t);
     this.applyTheme();
   }
-
   setTheme(t:'light'|'dark') { this.toggleTheme(t === 'dark'); }
 
   setMood(m: Mood) {
@@ -132,8 +133,10 @@ export class App implements OnInit, AfterViewInit {
   }
 
   private applyTheme() {
+    // html element per "dark" class (welcome overlay ke selectors ke liye)
     document.documentElement.classList.toggle('dark', this.theme() === 'dark');
   }
+
   private applyDir() {
     document.documentElement.setAttribute('dir', this.isRtl() ? 'rtl' : 'ltr');
     document.documentElement.lang = this.lang();
@@ -145,9 +148,9 @@ export class App implements OnInit, AfterViewInit {
       if (this.quoteEl?.nativeElement) {
         const el = this.quoteEl.nativeElement;
         gsap.killTweensOf(el);
-        gsap.fromTo(el, { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: 'power1.out' });
-        gsap.to(el, { y: 2, duration: 2.2, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.fromTo(el, { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' });
+        gsap.to(el, { y: 2, duration: 2.6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
       }
-    } catch { /* CSS fallback already present */ }
+    } catch {}
   }
 }

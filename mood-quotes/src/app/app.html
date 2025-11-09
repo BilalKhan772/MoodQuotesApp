@@ -1,6 +1,9 @@
 <!-- Welcome overlay -->
 <div *ngIf="showWelcome()" #welcomeEl class="welcome">
-  <span>{{ labels().welcome }} 👋</span>
+  <div class="welcome-card">
+    <div class="welcome-title">{{ labels().welcome }}</div>
+    <div class="welcome-sub">✨ {{ lang()==='en' ? 'Have a lovely day' : 'آپ کا دن خوشگوار رہے' }} ✨</div>
+  </div>
 </div>
 
 <div #appRoot
@@ -14,7 +17,6 @@
     <div class="brand">{{ labels().appName }}</div>
 
     <div class="controls">
-      <!-- Language -->
       <div class="lang-toggle" aria-label="{{ labels().language }}">
         <button class="chip" [class.active]="lang()==='en'" (click)="setLang('en')">English</button>
         <span class="sep">|</span>
@@ -53,7 +55,8 @@
   <!-- Quote -->
   <main class="quote-wrap">
     <article #quoteEl class="quote" aria-live="polite">
-      <span class="word" *ngFor="let w of words(); let i = index" [style.animationDelay.ms]="i * 80">{{ w }}&nbsp;</span>
+      <!-- slower per-word delay = 130ms -->
+      <span class="word" *ngFor="let w of words(); let i = index" [style.animationDelay.ms]="i * 130">{{ w }}&nbsp;</span>
     </article>
     <button class="btn" (click)="nextQuote()">{{ labels().newQuote }}</button>
   </main>
