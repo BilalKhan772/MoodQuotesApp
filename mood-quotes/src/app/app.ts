@@ -30,19 +30,19 @@ const LABELS = {
 type Quotes = Record<Mood, Record<Lang, string[]>>;
 const QUOTES: Quotes = {
   happy: {
-    en: ['Joy is a habit.', 'Choose sunshine today.', 'Gratitude turns enough into plenty.'],
+    en: ['Smile — it’s the key that fits everyone’s heart.', 'Keep shining, the world needs your light.','Be happy with what you have while working for what you want.','Gratitude turns enough into plenty.','Let your smile change the world.','Good vibes start with a grateful heart.','Start each day with a smile and a thankful heart.','When you focus on the good, the good gets better.','Keep your heart light and your thoughts brighter.'],
     ur: ['خوشی ایک عادت ہے۔', 'آج روشنی کا انتخاب کریں۔', 'شکر گزاری کمی کو کافی بنا دیتی ہے۔'],
   },
   sad: {
-    en: ['Even rain helps flowers grow.', 'Feel it, then let go.', 'The night teaches the value of dawn.'],
+    en: ['I wish I could forget the things I remember too well.', 'Some memories never fade, they just live quietly inside you.', 'Pain changes people sometimes into someone they no longer recognize.','Time heals nothing if you keep remembering everything.','Silence is sometimes the loudest cry.','Some scars never fade; they just stop bleeding.','It’s hard to find light when you’ve lived too long in the dark.','I don’t fear loneliness — I fear never feeling understood.','Some storms never end; they just become part of who you are.'],
     ur: ['بارش بھی پھولوں کو اگاتی ہے۔', 'محسوس کریں، پھر چھوڑ دیں۔', 'رات سحر کی قدر سکھاتی ہے۔'],
   },
   focused: {
-    en: ['Small steps, big results.', 'Deep work beats busy work.', 'One clear goal at a time.'],
+    en: ['Don’t watch the clock — do what it does, keep going.', 'Focus on progress, not perfection.', 'Don’t be busy, be productive.','Your mind is a garden — grow what matters.','When your vision is clear, decisions become easy.','Clarity of mind leads to power of action.','Focus isn’t about doing more, it’s about doing what counts.','The mind that’s calm is the mind that wins.','Don’t scatter your energy — aim it.'],
     ur: ['چھوٹے قدم، بڑے نتائج۔', 'گہرا کام مصروفیت سے بہتر۔', 'ایک وقت میں ایک واضح ہدف۔'],
   },
   creative: {
-    en: ['Curiosity sparks creation.', 'Make first, refine later.', 'Play is the engine of ideas.'],
+    en: ['The world is your canvas; paint it with your ideas.', 'Mistakes are proof that you’re trying something new.', 'Every idea starts as a spark — protect it until it becomes a flame.','Art is not what you see, but what you make others see.','Create what you wish existed.','Your imagination is your greatest superpower.','The more you explore, the more your mind invents.','A creative mind sees opportunity in chaos.','Turn your thoughts into art and your dreams into design.'],
     ur: ['جستجو تخلیق جگاتی ہے۔', 'پہلے بنائیں، پھر سنواریں۔', 'کھیل خیالوں کا انجن ہے۔'],
   },
 };
